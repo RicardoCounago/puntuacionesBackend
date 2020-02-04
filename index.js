@@ -9,6 +9,14 @@ var app = express();
 app.use(bodyParser.urlencoded({estended:false}));
 app.use(bodyParser.json());
 
+app.use( (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'X-API-KEY, Origin, X-Requested-Width, Content-Type, Accept, Access-Control-Request-Method');
+    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
+    res.header('Allow', 'GET,POST,PUT,DELETE');
+    next();
+})
+
 app.get('/', (req, res)=> {
     res.status(200).send('Hola');
 });
