@@ -4,8 +4,10 @@ var mongoose = require('mongoose');
 var routerPuntuacion = require('./routers/puntuacion')
 var morgan = require('morgan');
 var cors = require('cors');
-var app = express();
+var dotenv= require('dotenv');
 
+var app = express();
+dotenv.config();
 
 // Preparación de bodyparser para transformar las peticiones de texto a JSON
 app.use(bodyParser.urlencoded({estended:false}));
@@ -42,8 +44,8 @@ app.get('/', (req, res)=> {
 })*/
 
 const run = async()=> {
-    await mongoose.connect('mongodb://localhost:27018/scores', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: true});
-    await app.listen(5200)
+    await mongoose.connect(process.env.URL_BASEDATOS, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: true});
+    await app.listen(process.env.PUERTO_SERVIDOR)
 
     console.log('Servidor y BD arrancados.')
 }
